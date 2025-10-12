@@ -1,0 +1,6 @@
+package com.mycompany.myapp.DTO;
+
+public class OrderDTO {
+	int b_price, o_count;
+	String b_name;
+}

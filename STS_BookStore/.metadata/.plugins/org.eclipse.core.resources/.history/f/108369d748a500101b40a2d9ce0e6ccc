@@ -1,0 +1,30 @@
+package com.mycompany.myapp.Controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mycompany.myapp.DTO.BooksDTO;
+import com.mycompany.myapp.Service.BookstoreService;
+
+@Controller
+public class BookstoreController {
+	
+	@Autowired
+	private BookstoreService bookstoreService;
+	
+	@RequestMapping("/welcome")
+	public String Welcome() {
+		return "welcome";
+	}
+	
+	@RequestMapping("/books")
+	public String Books(Model model) {
+		ArrayList<BooksDTO> bd = bookstoreService.selectBooks();
+		model.addAttribute("book",bd);
+		return "books";
+	}
+}

@@ -1,0 +1,26 @@
+package com.mycompany.myapp.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mycompany.myapp.Service.BookstoreService;
+
+@Controller
+public class BookstoreController {
+	
+	@Autowired
+	private BookstoreService bookstoreService;
+	
+	@RequestMapping("/welcome")
+	public String Welcome() {
+		return "welcome";
+	}
+	
+	@RequestMapping("/books")
+	public String Books(Model model) {
+		
+		return "books";
+	}
+}

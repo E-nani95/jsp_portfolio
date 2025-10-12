@@ -1,0 +1,43 @@
+package com.mycompany.myapp.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.mycompany.myapp.DAO.BookstoreDAO;
+import com.mycompany.myapp.DTO.BooksDTO;
+import com.mycompany.myapp.VO.BookVO;
+
+@Service
+public class BookstoreService {
+	@Autowired
+	private BookstoreDAO bookstoreDAO;
+	
+	public ArrayList<BooksDTO> getAllBooks() {
+		return bookstoreDAO.GetAllBooks();
+	}
+	
+	public BooksDTO getBookById(String id){
+		return bookstoreDAO.getBookById(id);
+	}
+	
+	public boolean insertBook(BookVO bookVO, String img_path) {
+		MultipartFile mf = bookVO.getB_img_full();
+		String filename=mf.getOriginalFilename();
+		if(!mf.isEmpty()) {
+			try {
+				File saveFile = new File(img_path,filename);
+				mf.transferTo(saveFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return bookstoreDAO.InsertBook(bookVO);
+	}
+
+}

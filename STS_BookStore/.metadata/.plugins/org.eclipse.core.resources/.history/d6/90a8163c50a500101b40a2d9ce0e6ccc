@@ -1,0 +1,64 @@
+package com.mycompany.myapp.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.mycompany.myapp.DTO.BooksDTO;
+
+@Repository
+public class BookstoreDAO {
+	
+	private DataSource dataSource;
+	
+	@Autowired
+	public BookstoreDAO(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+	
+	private Connection getconnection() throws SQLException {
+		return dataSource.getConnection();
+	}
+	
+
+
+	public ArrayList<BooksDTO> SelectBooks() {
+		Connection conn;
+		PreparedStatement pstmt;
+		ResultSet rs;
+//		String sql = "Select * from book join division on book.d_no=division.d_no";
+//		임시 query문 3개로 제한함
+		String sql = "Select * from book join division on book.d_no=division.d_no limit 3";
+		ArrayList<BooksDTO> bdl = new ArrayList<>();
+		
+		try {
+			conn=getconnection();
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BooksDTO bd = new BooksDTO();
+				bd.setB_name(rs.getString("b_name"));
+				bd.setB_author(rs.getString("b_author"));
+				bd.setB_exp(rs.getString("b_exp"));
+				bd.setD_name(rs.getString("d_name"));
+				bd.setB_img(rs.getString("b_img"));
+				bd.setB_price(rs.getInt("b_price"));
+				bdl.add(bd);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bdl;
+	}
+	
+}

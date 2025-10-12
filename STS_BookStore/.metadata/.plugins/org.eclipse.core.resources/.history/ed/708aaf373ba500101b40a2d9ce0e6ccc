@@ -1,0 +1,43 @@
+package com.mycompany.myapp.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.mycompany.myapp.DTO.BooksDTO;
+
+@Repository
+public class Dao {
+	@Autowired
+	private DataSource dataSource;
+	
+	private Connection getconnection() throws SQLException {
+		return dataSource.getConnection();
+	}
+	
+	public ArrayList<BooksDTO> SelectWelcome() {
+		Connection conn;
+		PreparedStatement pstmt;
+//		String sql = "Select * from book join division on book.d_no=division.d_no";
+//		임시 query문 3개로 제한함
+		String sql = "Select * from book join division on book.d_no=division.d_no limit 3";
+		ArrayList<BooksDTO> wd = new ArrayList<>();
+		
+		try {
+			conn=getconnection();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return wd;
+	}
+	
+}

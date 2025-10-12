@@ -1,0 +1,5 @@
+package com.mycompany.myapp.Service;
+
+public class BookstoreService {
+
+}

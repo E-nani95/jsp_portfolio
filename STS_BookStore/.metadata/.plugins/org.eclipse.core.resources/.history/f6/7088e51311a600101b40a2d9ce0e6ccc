@@ -1,0 +1,52 @@
+package com.mycompany.myapp.Controller;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mycompany.myapp.DTO.BooksDTO;
+import com.mycompany.myapp.Service.BookstoreService;
+import com.mycompany.myapp.VO.BookVO;
+
+
+@Controller
+public class BookstoreController {
+	
+	@Autowired
+	private BookstoreService bookstoreService;
+	
+	@RequestMapping("/welcome")
+	public String Welcome() {
+		return "welcome";
+	}
+	
+	@RequestMapping("/books")
+	public String Books(Model model) {
+		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
+		model.addAttribute("books",bd);
+		return "books";
+	}
+	
+	@RequestMapping("/book")
+	public String Book(String id, Model model) {
+		BooksDTO bd = bookstoreService.getBookById(id);
+		model.addAttribute("book",bd);
+		return "book";
+	}
+	
+//	@RequestMapping("/addBook")
+//	public String addBook() {
+//		return "addBook";
+//	}
+//	
+//	@RequestMapping("/addBook_process")
+//	public String addBookProcess(BookVO bookVO,Model model) {
+//		bookstoreService.insertBook(bookVO);
+//		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
+//		model.addAttribute("books",bd);
+//		return"books";
+//	}
+}

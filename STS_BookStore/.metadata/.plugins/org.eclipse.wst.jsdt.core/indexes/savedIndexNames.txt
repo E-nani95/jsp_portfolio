@@ -1,0 +1,10 @@
+INDEX VERSION 1.4+C:\STS_BookStore\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2427512065.index
+369860945.index
+782056109.index
+491026810.index
+1490671027.index
+2370733492.index
+2039936993.index
+1898556852.index
+782056109.index

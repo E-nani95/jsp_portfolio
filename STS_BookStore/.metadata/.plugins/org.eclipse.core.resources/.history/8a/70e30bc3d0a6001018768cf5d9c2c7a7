@@ -1,0 +1,115 @@
+package com.mycompany.myapp.Controller;
+
+import java.util.ArrayList;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mycompany.myapp.DTO.BooksDTO;
+import com.mycompany.myapp.Service.BookstoreService;
+import com.mycompany.myapp.VO.BookVO;
+import com.mycompany.myapp.VO.UserVO;
+
+
+@Controller
+public class BookstoreController {
+	
+	@Autowired
+	private BookstoreService bookstoreService;
+	
+	@Autowired
+	private ServletContext servletContext;
+	
+	@RequestMapping("/welcome")
+	public String Welcome() {
+		return "welcome";
+	}
+	
+	@RequestMapping("/books")
+	public String Books(Model model) {
+		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
+		model.addAttribute("books",bd);
+		return "books";
+	}
+	
+	@RequestMapping("/book")
+	public String Book(String id, Model model) {
+		if(id==null || id.trim().equals("")) {
+			return "books";
+		}
+		BooksDTO bd = bookstoreService.getBookById(id);
+		model.addAttribute("book",bd);
+		return "book";
+	}
+	
+	@RequestMapping("/addBook")
+	public String addBook() {
+		return "addBook";
+	}
+	
+	@RequestMapping("/addBook_process")
+	public String addBookProcess(BookVO bookVO,Model model) {
+		String img_path = servletContext.getRealPath("/resources/images");
+		bookstoreService.insertBook(bookVO, img_path);
+		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
+		model.addAttribute("books",bd);
+		return"books";
+	}
+	
+	@RequestMapping("/addCart")
+	public String addCart(String id, HttpServletRequest request, Model model) {
+		if(id==null || id.trim().equals("")) {
+			return "books";
+		}
+		
+		HttpSession session=request.getSession();
+		
+		ArrayList<BooksDTO> bdl = bookstoreService.getAllBooks();
+		BooksDTO bd = new BooksDTO();
+		for(int i=0; i<bdl.size(); i++) {
+			bd=bdl.get(i);
+			if(bd.getB_no() == Integer.parseInt(id)) {
+				break;
+			}
+		}
+		
+		ArrayList<BooksDTO> list = (ArrayList<BooksDTO>) session.getAttribute("cartlist");
+		if(list==null) {
+			list = new ArrayList<BooksDTO>();
+			session.setAttribute("cartlist", list);
+		}
+		return "a";
+
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@RequestMapping("login_process")
+	public String login_process(UserVO userVO, HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		boolean res = bookstoreService.login(userVO);
+		if(res) {
+			session.setAttribute("user", userVO.getU_id());
+			session.setAttribute("loginState", "newLogin");
+			System.out.println("로그인 성공");
+		}else {
+			session.setAttribute("loginState", "fail");
+			return "login?error=1";
+		}
+		return "books";
+	}
+	
+	@RequestMapping("/signUp")
+	public String signUp() {
+		return "signup";
+	}
+}
