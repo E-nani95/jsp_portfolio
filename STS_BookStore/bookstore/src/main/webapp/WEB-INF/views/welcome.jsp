@@ -21,7 +21,9 @@
 			<div class="container-fluid py-5">
 				<h1 class="display-5 fw-bold"><%=greeting%></h1>
 				<p class="col-md-8 fs-4">BookMarket</p>
+				<!-- 
 				<p><a href="books" class="btn btn-secondary" role="button">go &raquo;</a></p>
+				 -->
 			</div>
 		</div>
 

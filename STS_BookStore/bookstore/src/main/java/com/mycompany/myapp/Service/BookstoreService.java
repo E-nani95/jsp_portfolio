@@ -29,20 +29,28 @@ public class BookstoreService {
 	
 	public boolean insertBook(BookVO bookVO, String img_path) {
 		MultipartFile mf = bookVO.getB_img_full();
+		//UUID등으로 고유 파일명 생성
 		String filename=mf.getOriginalFilename();
-
-		if(!mf.isEmpty()) {
-			try {
-				File saveFile = new File(img_path,filename);
-		        if (!saveFile.exists()) {
-		            saveFile.mkdirs(); // mkdirs()는 필요한 상위 폴더까지 모두 만들어줍니다.
-		        }
-				mf.transferTo(saveFile);
-				bookVO.setB_img(filename);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
+		//비거나 없을때 default 이미지로 대체
+		if(mf.isEmpty() || mf ==null) {
+			bookVO.setB_img("Default=image.png");
+			return bookstoreDAO.InsertBook(bookVO);
+		}
+		try {
+			// 이과정의 cotroller에 넣었음
+			File saveFile = new File(img_path,filename);
+	        if (!saveFile.exists()) {
+	            saveFile.mkdirs(); // mkdirs()는 필요한 상위 폴더까지 모두 만들어줍니다.
+	        }
+			mf.transferTo(saveFile);
+			bookVO.setB_img(filename);
+			
+//	        Path filePath = directoryPath.resolve(filename);
+//	        mf.transferTo(filePath.toFile());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return bookstoreDAO.InsertBook(bookVO);
 	}

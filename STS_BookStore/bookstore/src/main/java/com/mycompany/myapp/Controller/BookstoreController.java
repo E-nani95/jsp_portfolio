@@ -58,6 +58,14 @@ public class BookstoreController {
 	
 	@RequestMapping("/addBook_process")
 	public String addBookProcess(BookVO bookVO,Model model) {
+//		함수만들때 @Value{"${file.upload-dir}"} 어노테이션 사용
+//		1. application.properties
+//		file.upload-dir=C:/dev/uploads/images
+//		2. controller에서 경로설정후 service로 넘김
+//		Path directoryPath = path.get(uploadDir)
+//		3. if (!Files.exists(directoryPath)) { Files.createDirectories(directoryPath); }
+		
+//		루트 경로에 저장
 		String img_path = servletContext.getRealPath("/resources/images");
 		bookstoreService.insertBook(bookVO, img_path);
 		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
