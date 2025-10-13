@@ -35,8 +35,28 @@ public class BookstoreController {
 	}
 	
 	@RequestMapping("/books")
-	public String Books(Model model) {
-		ArrayList<BooksDTO> bd = bookstoreService.getAllBooks();
+	public String Books(Model model, HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		String pn = request.getParameter("page");
+		
+		if(pn ==null||pn.trim().isEmpty()) {
+			pn="1";
+		}
+		
+		ArrayList<BooksDTO> bdall = bookstoreService.getAllBooks();
+		int totalItems = bdall.size();
+		int pageNum = Integer.parseInt(pn);
+		int itemsPerPage = 6;
+		int totalPages = (int)Math.ceil((double) totalItems/itemsPerPage);
+		session.setAttribute("totalPages", totalPages);
+//		int page =1;
+		session.setAttribute("currentPage", pn);
+		int startPoint =(pageNum - 1)*itemsPerPage;
+//		int startPoint =(page - 1)*itemsPerPage;
+		ArrayList<BooksDTO> bd = bookstoreService.getSubBooks(itemsPerPage,startPoint);
+		
+//		offset쓸꺼라 필요없음
+//		int endPoint = Math.min(startPoint+itemsPerPage, totalItems);
 		model.addAttribute("books",bd);
 		return "books";
 	}

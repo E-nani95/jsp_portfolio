@@ -28,19 +28,46 @@
 			<c:forEach var="book" items="${books}">
 				<div class="col-md-4">
 					<div class="h-100 p-2">
-					<img src="/${book.b_img}" style="width: 250; height: 350;"/>
+					<img src="<c:url value='resources/images/${book.b_img}.jpg' />" style="width: 250; height: 350;"/>
+					<p>${book.b_img}</p>
 						<h5>
 							<b>${book.b_name}</b>
 						</h5>
 						<p>${book.b_author}</p>
 						<h6>출처 : ${book.d_name}</h6>
-						<p>${book.b_exp.substring(0,30)}.....</p>
+						<p>${book.b_exp.substring(0,20)}.....</p>
 						<p>${book.b_price}원</p>
 						<p><a href="book?id=${book.b_no}" class="btn btn-secondary" role="button">상세정보 &raquo;</a></p>
 					</div>
 				</div>
 
 			</c:forEach>
+		</div>
+		<div class="d-flex justify-content-center mt-4">
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+				<li class="page-item"><a class="page-link" href="?page=1">처음</a></li>
+					<%-- '이전' 버튼: 현재 페이지가 1보다 클 때만 표시 --%>
+					<c:if test="${currentPage > 1}">
+						<li class="page-item"><a class="page-link" href="?page=${currentPage - 1}">이전</a></li>
+					</c:if>
+
+					<c:set var="start" value="${currentPage-3 < 1 ? 1:currentPage-3}"/>
+					<c:set var="end" value="${currentPage+3 > totalPages ? totalPages:currentPage+3}"/>
+					<%-- 페이지 번호 목록: 1부터 totalPages까지 반복 --%>
+					<c:forEach var="i" begin="${start}" end="${end}">
+						<li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
+							<a class="page-link" href="?page=${i}">${i}</a>
+						</li>
+					</c:forEach>
+
+					<%-- '다음' 버튼: 현재 페이지가 마지막 페이지보다 작을 때만 표시 --%>
+					<c:if test="${currentPage < totalPages}">
+						<li class="page-item"><a class="page-link" href="?page=${currentPage + 1}">다음</a></li>
+					</c:if>
+					<li class="page-item"><a class="page-link" href="?page=${totalPages}">끝</a></li>
+				</ul>
+			</nav>
 		</div>
 		<p><a href="addBook" class="btn btn-secondary" role="button">도서등록</a></p>
 	<%@ include file="footer.jsp" %>

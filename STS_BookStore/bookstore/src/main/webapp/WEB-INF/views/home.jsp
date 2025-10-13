@@ -11,7 +11,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <script>
-window.location.replace("http://localhost:8080/myapp/welcome");
+window.location.replace("./welcome");
 </script>
 </body>
 </html>

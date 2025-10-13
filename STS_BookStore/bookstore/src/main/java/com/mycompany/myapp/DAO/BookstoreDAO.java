@@ -35,20 +35,55 @@ public class BookstoreDAO {
 		return dataSource.getConnection();
 	}
 	
-
-
 	public ArrayList<BooksDTO> GetAllBooks() {
 		Connection conn;
 		PreparedStatement pstmt;
 		ResultSet rs;
-//		String sql = "Select * from book join division on book.d_no=division.d_no";
+//		6개씩으로 페이징
+//		String sql = "Select * from book join division on book.d_no=division.d_no limit ? offset ?";
 //		임시 query문 3개로 제한함
-		String sql = "Select * from book join division on book.d_no=division.d_no limit 3";
+		String sql = "Select * from book join division on book.d_no=division.d_no";
 		ArrayList<BooksDTO> bdl = new ArrayList<>();
 		
 		try {
 			conn=getconnection();
 			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BooksDTO bd = new BooksDTO();
+				bd.setB_name(rs.getString("b_name"));
+				bd.setB_author(rs.getString("b_author"));
+				bd.setB_exp(rs.getString("b_exp"));
+				bd.setD_name(rs.getString("d_name"));
+				bd.setB_img(rs.getString("b_img"));
+				bd.setB_price(rs.getInt("b_price"));
+				bd.setB_no(rs.getInt("b_no"));
+				bdl.add(bd);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bdl;
+	}
+
+	public ArrayList<BooksDTO> GetSubBooks(int itemsPerPage,int startPoint) {
+		Connection conn;
+		PreparedStatement pstmt;
+		ResultSet rs;
+//		6개씩으로 페이징
+		String sql = "Select * from book join division on book.d_no=division.d_no limit ? offset ?";
+//		임시 query문 3개로 제한함
+//		String sql = "Select * from book join division on book.d_no=division.d_no limit 10";
+		ArrayList<BooksDTO> bdl = new ArrayList<>();
+		
+		try {
+			conn=getconnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, itemsPerPage);
+			pstmt.setInt(2, startPoint);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				BooksDTO bd = new BooksDTO();

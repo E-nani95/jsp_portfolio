@@ -13,9 +13,9 @@ public class DBConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-		dataSource.setUrl("jdbc:mariadb://localhost:3306/bookstore?serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mariadb://localhost:3300/bookstore?serverTimezone=UTC");
 		dataSource.setUsername("root");
-		dataSource.setPassword("123456789a");
+		dataSource.setPassword("1234");
 		return dataSource;
 	}
 }

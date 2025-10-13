@@ -129,6 +129,12 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!--추가  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 에러-->
+		<dependency>
+    		<groupId>taglibs</groupId>
+    		<artifactId>standard</artifactId>
+    		<version>1.1.2</version>
+		</dependency>
 
 		<!-- Test -->
 		<dependency>

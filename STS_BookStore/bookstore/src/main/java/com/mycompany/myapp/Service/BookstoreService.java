@@ -23,6 +23,10 @@ public class BookstoreService {
 		return bookstoreDAO.GetAllBooks();
 	}
 	
+	public ArrayList<BooksDTO> getSubBooks(int itemsPerPage,int startPoint) {
+		return bookstoreDAO.GetSubBooks(itemsPerPage,startPoint);
+	}
+	
 	public BooksDTO getBookById(String id){
 		return bookstoreDAO.getBookById(id);
 	}
