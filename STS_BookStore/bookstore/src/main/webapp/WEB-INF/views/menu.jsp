@@ -50,14 +50,18 @@
 			<c:otherwise>
 				<li style="padding-top: 7px; color: black"> [<%=sessionName%>님]</li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value="/logout"/>">로그아웃 </a></li>
+				<li class="nav-item"><a href="<c:url value="/books"/>" class="nav-link" >상품 목록</a></li>
 				<li class="nav-item"><a class="nav-link" href="<c:url value="/cart"/>">장바구니 </a></li>
+				<c:if test="${userid eq 'admin'}">
+        			<li class ="nav-item"><a href = "<c:url value="/addBook"/>" class = "nav-link"  >상품 등록</a></li>				
+				</c:if>
 				<!-- 
 				<li class="nav-item"><a class="nav-link" href="<c:url value="/member/updateMember"/>">회원 수정</a></li>
 				 -->
 			</c:otherwise>
       </c:choose>
-        <li class="nav-item"><a href="<c:url value="/books"/>" class="nav-link" >상품 목록</a></li>
         <!-- 
+        <li class="nav-item"><a href="<c:url value="/books"/>" class="nav-link" >상품 목록</a></li>
         <li class ="nav-item"><a href = "<c:url value="/addBook"/>" class = "nav-link"  >상품 등록</a></li>
         <li class ="nav-item"><a href = "<c:url value="/editBook?edit=update"/>" class = "nav-link"  >상품 수정</a></li>
         <li class ="nav-item"><a href = "<c:url value="/editBook?edit=delete"/>" class = "nav-link"  >상품 삭제</a></li>

@@ -1,4 +1,4 @@
 #Tomcat publish data
-#Mon Oct 13 21:44:03 KST 2025
+#Fri Oct 17 11:15:07 KST 2025
 org.eclipse.jst.jee.server\:bookstore=D\:\\apache-tomcat-9.0.109\\wtpwebapps\\bookstore
 org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\AI-00\\.m2\\repository\\org\\springframework\\spring-web\\5.2.9.RELEASE\\spring-web-5.2.9.RELEASE.jar=D\:\\apache-tomcat-9.0.109\\wtpwebapps\\bookstore\\WEB-INF\\lib\\spring-web-5.2.9.RELEASE.jar

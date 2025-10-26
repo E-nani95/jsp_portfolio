@@ -44,7 +44,7 @@
 				}
 			%>
 			<div class="col-md-5">
-			<img src="/${book.b_img}" style="width: 70%"/>
+			<img src="<c:url value='resources/images/${book.b_img}' />" style="width: 70%"/>
 			</div>	 	
 			<div class="col-md-6">
 				<h3><b>${book.b_name}</b></h3>
@@ -56,7 +56,9 @@
 				<h4>${book.b_price}원</h4>
 				<p><form name="addForm" action="addCart?id=<%=id%>" method="POST">
 				<p><a href="addCart?id=<%=id%>" class="btn btn-info"> 도서주문 &raquo;</a> 
+				<!--  
 					<a href="cart" class="btn btn-warning">장바구니 &raquo;</a>
+				-->
 					<a href="books" class="btn btn-secondary"> 도서목록 &raquo;</a>
 				</form>
 			</div>
