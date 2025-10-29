@@ -44,7 +44,7 @@
 				}
 			%>
 			<div class="col-md-5">
-			<img src="<c:url value='resources/images/${book.b_img}' />" style="width: 70%"/>
+			<img src="<c:url value='${book.b_img}' />" style="width: 70%"/>
 			</div>	 	
 			<div class="col-md-6">
 				<h3><b>${book.b_name}</b></h3>

@@ -189,4 +189,9 @@ public class BookstoreController {
 		model.addAttribute("orderlist", od);
 		return "redirect:/cart";
 	}
+	
+	@RequestMapping("/shoppingInfo")
+	public String shoppingInfo() {
+		return "shoppingInfo";
+	}
 }

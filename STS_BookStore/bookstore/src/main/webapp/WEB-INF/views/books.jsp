@@ -28,7 +28,7 @@
 				<c:set var="maxLength" value="${book.b_exp.length() < 20 ? book.b_exp.length():20}"/>
 				<div class="col-md-4">
 					<div class="h-100 p-2">
-					<img src="<c:url value='resources/images/${book.b_img}' />" style="width: 250; height: 350;"/>
+					<img src="<c:url value='${book.b_img}' />" style="width: 250; height: 350;"/>
 						<h5>
 							<b>${book.b_name}</b>
 						</h5>

@@ -10,15 +10,19 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 public class DBConfig {
 	
-	@Value("${DB_URL}")
-    private String dbUrl;
-
-    @Value("${DB_USER}")
-    private String dbUsername;
-
-    @Value("${DB_PASS}")
-    private String dbPassword;
-
+//	@Value("${DB_URL}")
+//    private String dbUrl;
+//
+//    @Value("${DB_USER}")
+//    private String dbUsername;
+//
+//    @Value("${DB_PASS}")
+//    private String dbPassword;
+	
+	String dbUrl = System.getenv("DB_URL");
+    String dbUsername = System.getenv("DB_USER");
+    String dbPassword = System.getenv("DB_PASS");
+    
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -26,6 +30,7 @@ public class DBConfig {
 		dataSource.setUrl(dbUrl);
 		dataSource.setUsername(dbUsername);
 		dataSource.setPassword(dbPassword);
+		
 		return dataSource;
 	}
 }

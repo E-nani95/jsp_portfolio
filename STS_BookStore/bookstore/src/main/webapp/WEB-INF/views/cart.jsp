@@ -31,7 +31,8 @@
 			<table width="100%">
 				<tr>
 					<td align="left"><a href="./orderAllDelete?id=${sessionScope.usernum}" class="btn btn-danger">삭제하기</a></td>
-					<td align="right"><a href="./shippingInfo.jsp?cartId=<%= userId %>" class="btn btn-success">주문하기</a></td>
+					<td align="right"><a href="./shoppingInfo?cartId=<%= userId %>" class="btn btn-success">주문하기</a></td>  
+					<!--<td align="right"><a href="#" class="btn btn-success">주문하기</a></td>-->
 				</tr>
 			</table>
 		</div>
